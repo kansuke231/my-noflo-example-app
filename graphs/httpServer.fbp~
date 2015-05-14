@@ -1,0 +1,24 @@
+#comment components/WriteString
+#        webserver/WriteResponse
+
+'4343' -> LISTEN Server(webserver/Server)
+
+Server() REQUEST -> IN Match(woute/Match)
+
+Match() OUT -> IN Index(webserver/WriteResponse)
+Match() FAIL -> IN NotFound(webserver/WriteResponse)
+
+Index() OUT -> IN SendIndex(webserver/SendResponse)
+NotFound() OUT -> IN SendNotFound(webserver/SendResponse)
+
+'index' -> MATCH Match()
+
+'static/index.html' -> IN Reader(filesystem/ReadFile)
+'static/404.html' -> IN ErrReader(filesystem/ReadFile) 
+
+Reader() OUT ->  STRING Index()
+ErrReader() OUT -> STRING NotFound()
+
+
+
+

@@ -1,0 +1,17 @@
+{
+  "name": "my-noflo-example-app",
+  "version": "0.0.1",
+  "dependencies": {
+    "noflo": "^0.5.13",
+    "noflo-core": "^0.1.11",
+    "noflo-filesystem": "^1.0.6",
+    "noflo-math": "0.0.6",
+    "noflo-webserver": "0.0.4",
+    "noflo-woute": "^0.1.4"
+  },
+  "noflo":{
+    "components":{
+      "Sanitizer": "./components/Sanitizer.coffee"
+    }
+  }
+}
