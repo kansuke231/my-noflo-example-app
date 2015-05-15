@@ -1,10 +1,15 @@
-'4343' -> LISTEN Server(webserver/Server) REQUEST -> IN BodyParser(webserver/BodyParser)
-BodyParser() OUT -> IN  Sanitizer(Sanitizer) OUT -> IN Display(core/Output)
+'4343' -> LISTEN Server(webserver/Server) REQUEST -> IN Match(woute/Match)
 
-Server() REQUEST -> IN WriteResponse(webserver/WriteResponse)
-WriteResponse() OUT -> IN SendResponse(webserver/SendResponse)
+'index' -> MATCH Match()
+Match() OUT -> IN BodyParser(webserver/BodyParser)
+BodyParser() OUT -> IN  Sanitizer(Sanitizer) OUT -> IN Display(core/Output)
+Match() OUT -> IN WriteResponse(webserver/WriteResponse) OUT -> IN SendResponse(webserver/SendResponse)
+
+Match() FAIL -> IN WriteNotFound(webserver/WriteResponse) OUT -> IN SendNotFound(webserver/SendResponse)
+
 
 # specify an absolute path to ReadFile component
 '/home/kansuke/Desktop/my-noflo-example-app/graphs/static/index.html' -> IN Reader(filesystem/ReadFile) OUT -> STRING WriteResponse()
 
+'/home/kansuke/Desktop/my-noflo-example-app/graphs/static/404.html' -> IN ErrReader(filesystem/ReadFile) OUT -> STRING WriteNotFound()
 
